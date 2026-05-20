@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.12...4.0)
 
 project(gau2grid
-        VERSION 2.0.8
+        VERSION 2.0.9
         LANGUAGES C)
 set(gau2grid_AUTHORS      "Daniel G. A. Smith")
 set(gau2grid_DESCRIPTION  "Fast computation of a gaussian and its derivative on a grid")
-set(gau2grid_URL          "https://github.com/dgasmith/gau2grid")
+set(gau2grid_URL          "https://github.com/psi4/gau2grid")
 set(gau2grid_LICENSE      "BSD 3-clause")
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -151,21 +151,21 @@ endif()
 
 if(${INSTALL_PYMOD})
     if(${NATIVE_PYTHON_INSTALL})
-        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+        execute_process(COMMAND ${Python_EXECUTABLE} -c
                         "import sys; print(sys.prefix);"
                         OUTPUT_VARIABLE CMAKE_INSTALL_PREFIX
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
-        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+        execute_process(COMMAND ${Python_EXECUTABLE} -c
                         "from distutils import sysconfig as s; import os; import sys; cmake_install_prefix = sys.prefix; prefix_lib = s.get_config_var('LIBDIR'); print(prefix_lib.replace(os.path.commonpath([prefix_lib, cmake_install_prefix]), '').strip('/'));"
                         OUTPUT_VARIABLE CMAKE_INSTALL_LIBDIR
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
-        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+        execute_process(COMMAND ${Python_EXECUTABLE} -c
                         "from distutils import sysconfig as s; import os; prefix_lib = s.get_config_var('LIBDIR'); spdir = s.get_python_lib(plat_specific=True); print(spdir.replace(os.path.commonpath([prefix_lib, spdir]), ''));"
                         OUTPUT_VARIABLE PYMOD_INSTALL_LIBDIR
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
     endif()
 
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+    execute_process(COMMAND ${Python_EXECUTABLE} -c
                     "from numpy import distutils; print(distutils.misc_util.get_shared_lib_extension(is_python_ext=False))"
                     OUTPUT_VARIABLE PYLIB_EXTENSION
                     OUTPUT_STRIP_TRAILING_WHITESPACE)
